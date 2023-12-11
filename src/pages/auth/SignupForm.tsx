@@ -3,13 +3,20 @@ import Input from "../../components/Input";
 import themeVars from "../../util/themeVars";
 import Button from "../../components/buttons/Button";
 import VerticalGap from "../../components/VerticalGap";
-import {styles} from "./SigninSignupStyle"
+import {styles} from "./SigninSignupStyle";
+import Checkbox from "../../components/checkbox";
+import DropDown from "../../components/dropdowninput";
+import data from "../../components/options";
+
+
 interface ISignupFormProps {
     changeMode: () => void;
     userDetails: {
         email: string;
         password: string;
         name: string;
+        sub: boolean;
+        areas: string[];
     },
 
     errors: {
@@ -27,12 +34,11 @@ interface ISignupFormProps {
         }
     },
 
-    handleChange: (e: any) => void;
-
+    handleChange: ((e: any) => void)[];
     validateField: (field: string, value: string) => void;
 
     onSubmit: (e: any) => void;
-}
+} 
 const SignupForm = ({changeMode, userDetails, errors, handleChange, validateField, onSubmit}:ISignupFormProps) => {
 
     return(
@@ -52,7 +58,7 @@ const SignupForm = ({changeMode, userDetails, errors, handleChange, validateFiel
                     type={"text"}
                     value={userDetails.name}
                     placeHolder={"Enter your name"}
-                    onChange={(e)=>{handleChange(e)}}
+                    onChange={(e)=>{handleChange[0](e)}}
                     onBlur={validateField}
                     error={errors.name}
                 />
@@ -62,7 +68,7 @@ const SignupForm = ({changeMode, userDetails, errors, handleChange, validateFiel
                     type={"email"}
                     value={userDetails.email}
                     placeHolder={"Enter your email address"}
-                    onChange={(e)=>{handleChange(e)}}
+                    onChange={(e)=>{handleChange[0](e)}}
                     onBlur={validateField}
                     error={errors.email}
                 />
@@ -72,12 +78,28 @@ const SignupForm = ({changeMode, userDetails, errors, handleChange, validateFiel
                     type={"password"}
                     value={userDetails.password}
                     placeHolder={"Enter your password"}
-                    onChange={(e)=>{handleChange(e)}}
+                    onChange={(e)=>{handleChange[0](e)}}
                     onBlur={validateField}
                     error={errors.password}
                 />
 
+                <DropDown
+                    options = {data}
+                    label = {"Localities"}
+                    name = {"areas"}
+                    value = {userDetails.areas}
+                    onChange = {(e)=>{handleChange[1](e)}}
+                />
+
                 <VerticalGap gap={"0.8rem"}/>
+                <Checkbox
+                    label={"Subscribe to newsletter"}
+                    name={"sub"}
+                    value = {userDetails.sub}
+                    onChange={handleChange[0]}
+                />
+                
+
                 <Button  onClick={onSubmit} type={"long"}
                          color={themeVars.colors.accent.green}
                          hoverColor={themeVars.colors.accent.darkGreen}>
