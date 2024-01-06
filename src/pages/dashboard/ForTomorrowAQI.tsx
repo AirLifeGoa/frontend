@@ -114,7 +114,7 @@ const ForTomorrowList = ({columnSize, data}: IForTomorrowList) => {
                                 AQI
                             </div>
                             <div className={css(styles.progressCircleTextValue)}>
-                                {AQI.toFixed(0)}
+                                {AQI ? AQI.toFixed(0) : 0}
                             </div>
 
                         </div>
