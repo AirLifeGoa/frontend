@@ -96,6 +96,13 @@ export const styles = StyleSheet.create(
             fontWeight: 800,
         },
 
+        CheckboxContainer: {
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+        },
+        
+
         verifyEmailSubText: {
             width: "100%",
             display: 'flex',

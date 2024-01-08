@@ -31,6 +31,8 @@ const SigninSignup = () => {
             email: "",
             password: "",
             name: "",
+            sub: false,
+            areas: [] as string[],
         }
     );
 
@@ -44,6 +46,10 @@ const SigninSignup = () => {
                 message: ""
             },
             name: {
+                error: false,
+                message: ""
+            },
+            areas: {
                 error: false,
                 message: ""
             }
@@ -107,9 +113,22 @@ const SigninSignup = () => {
 
     const handleChange = (e: any) => {
         const {name, value} = e.target;
-        setUserDetails({...userDetails, [name]: value});
+        
+        if(name === "sub")
+        {
+            setUserDetails({...userDetails, [name]: !userDetails.sub});
+            
+        }
+        else
+        {
+            setUserDetails({...userDetails, [name]: value});
+        }
     }
 
+    const handleChangeopt = (e : {label: string, value:string}[]) => {
+        const values = e.map(option => option.value) as string[];
+        setUserDetails({...userDetails, areas: values})
+    }
 
     const onSubmit = async (e: any) => {
         e.preventDefault();
@@ -216,7 +235,7 @@ const SigninSignup = () => {
                      SignupForm changeMode={changeMode}
                         userDetails={userDetails}
                         errors={errors}
-                        handleChange={handleChange}
+                        handleChange={[handleChange, handleChangeopt]}
                         validateField={validateField}
                         onSubmit={onSubmit}
                  />}

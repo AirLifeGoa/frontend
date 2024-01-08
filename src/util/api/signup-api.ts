@@ -4,6 +4,8 @@ interface SignupData {
     email: string;
     password: string;
     name: string;
+    sub: boolean;
+    areas: string[];
 }
 export const signupApi = async (data: SignupData) => {
     const modifiedData = {
@@ -11,7 +13,9 @@ export const signupApi = async (data: SignupData) => {
         password: data.password,
         firstName: data.name,
         lastName: "",
-        appliedRole: "user"
+        appliedRole: "user",
+        sub: data.sub,
+        areas: data.areas,
     }
     // handle cors error
     try {
